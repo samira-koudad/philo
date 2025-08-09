@@ -6,7 +6,7 @@
 /*   By: skoudad <skoudad@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 00:00:00 by skoudad           #+#    #+#             */
-/*   Updated: 2025/07/25 20:57:22 by skoudad          ###   ########.fr       */
+/*   Updated: 2025/08/09 21:14:14 by skoudad          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ void	*routine(void *ptr)
 		ft_message(philo, "message");
 		// eat(philo);
 		// ft_message(philo, "is sleeping");
-		custom_pause(philo->data->time_sleep);
 		// ft_message(philo, "is thinking");
 	}
 	return (NULL);
@@ -175,6 +174,12 @@ void	thread_launch(t_philo *philo, t_data *data)
 		if (pthread_create(&philo[count].thread, NULL, &routine, &philo[count]))
 			return;
 		// sleep(1);
+		count++;
+	}
+	count = 0;
+	while (count < data->philo_nbr)
+	{
+		pthread_join(philo[count].thread, NULL);
 		count++;
 	}
 
